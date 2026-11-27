@@ -256,3 +256,166 @@ function moveTarget() {
   </footer>
 </body>
 </html>
+!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Fortnite Pro Academy</title>
+<style>
+body{background:#101426;color:white;font-family:Arial;text-align:center;margin:0}
+header{background:#713cff;padding:20px}
+.card{background:#202d4c;margin:15px;padding:20px;border-radius:15px}
+button{background:#ffbd00;border:0;padding:13px;margin:6px;border-radius:9px;font-weight:bold}
+#arena{height:300px;background:#080d19;position:relative;overflow:hidden}
+.target{position:absolute;background:red;width:50px;height:50px;border-radius:50%}
+.hidden{display:none}
+#buildarea{height:280px;background:#18243a;display:grid;grid-template-columns:repeat(3,1fr);gap:5px;padding:5px}
+.block{background:#3c75c9;border:2px solid white;display:grid;place-items:center;font-size:25px}
+</style>
+</head>
+<body>
+<header>
+<h1>🎮 FORTNITE PRO ACADEMY</h1>
+<p>XP: <span id="xp">0</span> ⭐</p>
+</header>
+
+<div id="home">
+<div class="card">
+<h2>🎯 AIM TRAINER</h2>
+<p>Train your aim and hit the targets!</p>
+<button onclick="show('aim')">PLAY NOW</button>
+</div>
+<div class="card">
+<h2>🏗️ BUILDING SIMULATOR</h2>
+<p>Learn to build your structures!</p>
+<button onclick="show('build')">PLAY NOW</button>
+</div>
+<div class="card">
+<h2>⚡ EDITING CHALLENGE</h2>
+<p>Practice selecting tiles to make edits.</p>
+<button onclick="show('edit')">PLAY NOW</button>
+</div>
+</div>
+
+<div id="aim" class="hidden card">
+<h2>🎯 AIM TRAINER</h2>
+<p>Score: <span id="score">0</span></p>
+<p>Time: <span id="time">30</span></p>
+<div id="arena"></div>
+<button onclick="startAim()">START</button>
+<button onclick="show('home')">BACK</button>
+</div>
+
+<div id="build" class="hidden card">
+<h2>🏗️ BUILDING SIMULATOR</h2>
+<p>Choose a structure to place!</p>
+<div id="buildarea">
+<div class="block" onclick="place(this)">+</div>
+<div class="block" onclick="place(this)">+</div>
+<div class="block" onclick="place(this)">+</div>
+<div class="block" onclick="place(this)">+</div>
+<div class="block" onclick="place(this)">+</div>
+<div class="block" onclick="place(this)">+</div>
+<div class="block" onclick="place(this)">+</div>
+<div class="block" onclick="place(this)">+</div>
+<div class="block" onclick="place(this)">+</div>
+</div>
+<button onclick="choose('🧱 WALL')">WALL</button>
+<button onclick="choose('⬆️ RAMP')">RAMP</button>
+<button onclick="choose('🟦 FLOOR')">FLOOR</button>
+<button onclick="choose('🔺 CONE')">CONE</button>
+<p id="message">Choose a structure, then tap a square!</p>
+<button onclick="show('home')">BACK</button>
+</div>
+
+<div id="edit" class="hidden card">
+<h2>⚡ EDITING CHALLENGE</h2>
+<p>Tap the highlighted tiles to complete a window edit!</p>
+<div id="tiles" style="display:grid;grid-template-columns:repeat(3,1fr);gap:5px"></div>
+<p id="editmsg">Select the middle tile!</p>
+<button onclick="resetEdit()">TRY AGAIN</button>
+<button onclick="show('home')">BACK</button>
+</div>
+
+<script>
+let xp=0,score=0,time=30,active=false;
+let timer,chosen="🧱 WALL";
+function show(id){
+ document.querySelectorAll("#home,#aim,#build,#edit").forEach(x=>x.classList.add("hidden"));
+ document.getElementById(id).classList.remove("hidden");
+ active=false;clearInterval(timer);
+}
+function addXP(n){
+ xp+=n;document.getElementById("xp").textContent=xp;
+}
+function startAim(){
+ clearInterval(timer);
+ score=0;time=30;active=true;
+ document.getElementById("score").textContent=0;
+ document.getElementById("time").textContent=30;
+ target();
+ timer=setInterval(()=>{
+ time--;
+ document.getElementById("time").textContent=time;
+ if(time<=0){
+ active=false;clearInterval(timer);
+ document.getElementById("arena").innerHTML="GAME OVER!";
+ addXP(score*5);
+ alert("Great job! You earned "+score*5+" XP!");
+ }
+ },1000);
+}
+function target(){
+ if(!active)return;
+ let a=document.getElementById("arena");
+ a.innerHTML="";
+ let t=document.createElement("button");
+ t.className="target";
+ t.style.left=Math.random()*(a.clientWidth-50)+"px";
+ t.style.top=Math.random()*(a.clientHeight-50)+"px";
+ t.onclick=()=>{
+ if(!active)return;
+ score++;
+ document.getElementById("score").textContent=score;
+ target();
+ };
+ a.appendChild(t);
+}
+function choose(x){
+ chosen=x;
+ document.getElementById("message").textContent="Selected "+x+". Now tap a square!";
+}
+let built=0;
+function place(el){
+ if(el.textContent!=="+")return;
+ el.textContent=chosen;
+ built++;
+ document.getElementById("message").textContent="Structures placed: "+built;
+ if(built===9){
+ addXP(50);
+ alert("Great building! +50 XP");
+ }
+}
+function resetEdit(){
+ let tiles=document.getElementById("tiles");
+ tiles.innerHTML="";
+ for(let i=0;i<9;i++){
+ let b=document.createElement("button");
+ b.textContent="⬜";
+ b.style.height="75px";
+ b.onclick=()=>{
+ if(i===4){
+ b.textContent="🟦";
+ document.getElementById("editmsg").textContent="Perfect edit! +25 XP";
+ addXP(25);
+ }else{
+ document.getElementById("editmsg").textContent="Try the middle tile!";
+ }
+ };
+ tiles.appendChild(b);
+ }
+}
+resetEdit();
+</script>
+</body>
+</html>
