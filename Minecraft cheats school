@@ -1,0 +1,210 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Minecraft Cheat School</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial;
+  background: #17251a;
+  color: white;
+  text-align: center;
+}
+
+header {
+  background: #287a35;
+  padding: 30px 10px;
+  border-bottom: 6px solid #80552b;
+}
+
+h1 {
+  font-size: 35px;
+  color: white;
+}
+
+h2 {
+  color: #65ed68;
+}
+
+.container {
+  padding: 15px;
+  max-width: 900px;
+  margin: auto;
+}
+
+.card {
+  background: #293d2c;
+  padding: 20px;
+  margin: 15px 0;
+  border-radius: 12px;
+  border: 2px solid #56845b;
+}
+
+.command {
+  background: black;
+  color: #ffe66b;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 17px;
+  overflow-wrap: anywhere;
+}
+
+button {
+  background: #59cf52;
+  color: black;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  margin: 8px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #a2ff83;
+}
+
+input {
+  padding: 13px;
+  width: 80%;
+  max-width: 400px;
+  border-radius: 8px;
+  border: none;
+}
+
+footer {
+  padding: 25px;
+  background: #0d170f;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>⛏️ MINECRAFT CHEAT SCHOOL</h1>
+<p>LEARN ALL THE BEST MINECRAFT COMMANDS!</p>
+</header>
+
+<div class="container">
+
+<h2>🔥 WELCOME TO CHEAT SCHOOL!</h2>
+<p>Learn Minecraft commands and become a master!</p>
+
+<input id="search" placeholder="Search for a cheat..."
+oninput="searchCheats()">
+
+<div id="lessons">
+
+<div class="card">
+<h2>💎 FREE DIAMONDS</h2>
+<p>Get 64 diamonds!</p>
+<div class="command">/give @s minecraft:diamond 64</div>
+<button onclick="copy('/give @s minecraft:diamond 64')">COPY CHEAT</button>
+</div>
+
+<div class="card">
+<h2>🧱 CREATIVE MODE</h2>
+<p>Get unlimited building blocks!</p>
+<div class="command">/gamemode creative</div>
+<button onclick="copy('/gamemode creative')">COPY CHEAT</button>
+</div>
+
+<div class="card">
+<h2>⚔️ SURVIVAL MODE</h2>
+<p>Return to survival mode.</p>
+<div class="command">/gamemode survival</div>
+<button onclick="copy('/gamemode survival')">COPY CHEAT</button>
+</div>
+
+<div class="card">
+<h2>⚡ TELEPORT</h2>
+<p>Teleport to coordinates!</p>
+<div class="command">/tp @s 100 70 100</div>
+<button onclick="copy('/tp @s 100 70 100')">COPY CHEAT</button>
+</div>
+
+<div class="card">
+<h2>☀️ MAKE IT DAY</h2>
+<p>Change the time to daytime.</p>
+<div class="command">/time set day</div>
+<button onclick="copy('/time set day')">COPY CHEAT</button>
+</div>
+
+<div class="card">
+<h2>🌙 MAKE IT NIGHT</h2>
+<p>Change the time to night.</p>
+<div class="command">/time set night</div>
+<button onclick="copy('/time set night')">COPY CHEAT</button>
+</div>
+
+<div class="card">
+<h2>🌧️ CHANGE WEATHER</h2>
+<p>Make the weather clear.</p>
+<div class="command">/weather clear</div>
+<button onclick="copy('/weather clear')">COPY CHEAT</button>
+</div>
+
+<div class="card">
+<h2>🐉 SUMMON ENDER DRAGON</h2>
+<p>Summon the Ender Dragon!</p>
+<div class="command">/summon minecraft:ender_dragon</div>
+<button onclick="copy('/summon minecraft:ender_dragon')">COPY CHEAT</button>
+</div>
+
+<div class="card">
+<h2>🧟 SUMMON ZOMBIE</h2>
+<p>Spawn a zombie!</p>
+<div class="command">/summon minecraft:zombie</div>
+<button onclick="copy('/summon minecraft:zombie')">COPY CHEAT</button>
+</div>
+
+</div>
+
+<div class="card">
+<h2>🎮 MINECRAFT QUIZ</h2>
+<p>Which command gives you diamonds?</p>
+<button onclick="quiz(true)">/give @s minecraft:diamond 64</button>
+<button onclick="quiz(false)">/time set day</button>
+<p id="result"></p>
+</div>
+
+</div>
+
+<footer>
+⛏️ MINECRAFT CHEAT SCHOOL
+<p>Learn • Play • Explore</p>
+</footer>
+
+<script>
+function copy(command) {
+  navigator.clipboard.writeText(command)
+    .then(() => alert("CHEAT COPIED! " + command))
+    .catch(() => prompt("Copy this command:", command));
+}
+
+function quiz(correct) {
+  document.getElementById("result").innerHTML =
+    correct ? "🏆 CORRECT! YOU ARE A PRO!" :
+    "❌ TRY AGAIN!";
+}
+
+function searchCheats() {
+  let value = document.getElementById("search")
+    .value.toLowerCase();
+
+  document.querySelectorAll("#lessons .card")
+    .forEach(card => {
+      card.style.display =
+        card.innerText.toLowerCase().includes(value)
+        ? "block" : "none";
+    });
+}
+</script>
+
+</body>
+</html>
