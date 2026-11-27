@@ -3,7 +3,126 @@ Learn how to play like a pro in fortnite
 
 <!DOCTYPE html>
 <html lang="en">
+<head><!DOCTYPE html>
+<html lang="en">
 <head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fortnite Pro Academy</title>
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #101426;
+  color: white;
+  text-align: center;
+}
+header {
+  background: #713cff;
+  padding: 25px;
+}
+h1 { font-size: 32px; }
+section { padding: 20px; }
+.lesson {
+  background: #202a46;
+  padding: 20px;
+  margin: 15px auto;
+  max-width: 500px;
+  border-radius: 15px;
+}
+button {
+  background: #ffb800;
+  border: none;
+  padding: 12px 22px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+}
+#target {
+  width: 65px;
+  height: 65px;
+  border-radius: 50%;
+  background: red;
+  position: relative;
+  margin: 20px auto;
+  cursor: pointer;
+}
+</style>
+</head>
+<body>
+
+<header>
+<h1>🎮 FORTNITE PRO ACADEMY</h1>
+<p>Train Like a Pro. Become a Champion.</p>
+</header>
+
+<section>
+<h2>🔥 Choose Your Training</h2>
+
+<div class="lesson">
+<h3>🎯 Aim Training</h3>
+<p>Click the target as fast as possible!</p>
+<button onclick="startAim()">Start Aim Training</button>
+<p id="score">Score: 0</p>
+<div id="target" onclick="hitTarget()"></div>
+</div>
+
+<div class="lesson">
+<h3>🏗️ Building Skills</h3>
+<p>Learn the basic Fortnite builds:</p>
+<p>Wall • Ramp • Floor • Cone</p>
+<button onclick="alert('Practice building walls, ramps and 90s!')">
+Learn Building
+</button>
+</div>
+
+<div class="lesson">
+<h3>⚡ Editing Skills</h3>
+<p>Learn how to edit walls, floors and ramps.</p>
+<button onclick="alert('Practice wall edits and reset edits!')">
+Learn Editing
+</button>
+</div>
+
+<div class="lesson">
+<h3>🧠 Pro Tips</h3>
+<p>1. Always keep moving.</p>
+<p>2. Learn to aim before shooting.</p>
+<p>3. Build to protect yourself.</p>
+<p>4. Practice every day.</p>
+</div>
+</section>
+
+<script>
+let score = 0;
+let playing = false;
+
+function startAim() {
+  score = 0;
+  playing = true;
+  document.getElementById("score").innerText = "Score: 0";
+  moveTarget();
+}
+
+function hitTarget() {
+  if (!playing) return;
+  score++;
+  document.getElementById("score").innerText =
+    "Score: " + score;
+  moveTarget();
+}
+
+function moveTarget() {
+  let target = document.getElementById("target");
+  target.style.left = (Math.random() * 100 - 50) + "px";
+  target.style.top = (Math.random() * 100 - 50) + "px";
+}
+</script>
+
+</body>
+</html>
+
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Fortnite Pro Academy</title>
